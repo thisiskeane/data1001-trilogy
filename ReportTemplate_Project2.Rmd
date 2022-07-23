@@ -1,0 +1,247 @@
+---
+title: "COVID-19 impacts on domestic and international students"
+author: "Group 161 in Canvas; 490402742, 500459007, 500235825, 500625831"
+subtitle: "Project 2"
+date: "University of Sydney | DATA1001 | September 2020"
+output:
+  html_document:
+    fig_caption: yes
+    number_sections: yes
+    self_contained: yes
+    theme: flatly
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    code_folding: hide
+---
+
+<br>
+
+# Executive Summary
+
+This study examines the effect of COVID-19 on domestic and international students. Data reflects **high unemployment rates** and dependence on external financial support for both groups and reveals a **weak correlation** with hours studied. COVID-19 has negatively affected the student education but has not significantly influenced the consideration to defer.  
+
+<br>
+
+# Full Report
+
+## Initial Data Analysis (IDA)
+
+```{r, echo=F}
+# Read in your survey data
+survey = read.csv("realsurvey.csv")
+```
+
+### Source
+
+Data was collected from a survey made by data science students from the University of Sydney using Google Forms. 
+
+The survey was distributed to students across multiple universities via an EdStem forum and social media.
+
+
+### Structure
+
+Survey consists of 12 questions, recording 35 responses.
+
+
+### Limitations
+
+- Data was collected over a *short* period of time (1 week).
+  - This may not be reflective of overall, year-length student experiences
+  
+<br>
+
+- Sample size of 34 students may not be a realistic representations of thousands of university students
+
+- Potential bias in survey results
+
+- Responses from domestic students dominate over international students.
+  -  Less international students being represented
+  -  Possibly due to survey being inaccessible
+  - Google is banned in mainland China, which is where most international students reside
+  
+<br>
+
+- Questions based on assumptions and general averages (hours of study) is dependent on other factors and variables (such as amount of homework)
+  
+
+
+<br>
+
+## Research Questions 
+
+### 
+How many hours do students work?
+```{r, echo=F}
+domw = read.csv("domw.csv")
+test  = table(domw)
+barplot(test, main = "Working hours for domestic students", xlab = "Number of students", ylab = "Hours worked", horiz = T, col = "purple")
+
+intw = read.csv("intw.csv")
+test  = table(intw)
+barplot(test, main = "Working hours for international students", xlab = "Number of students", ylab = "Hours worked", horiz = T, col = "purple")
+```
+
+From the sample data, most domestic students are **currently unemployed**. The next highest being 5 hours a week and 21 hours a week. This trend continues with *international students* as most are unemployed as well.
+
+<br>
+
+###
+Has student working hours increased or decreased due to COVID-19?
+```{r, echo=F}
+domr = read.csv("domr.csv")
+test = table(domr)
+library(RColorBrewer)
+coul <- brewer.pal(5, "Set2")
+barplot(test, main = "Changes in work for domestic students", col=coul)
+```
+
+```{r, echo=F}
+intr = read.csv("intr.csv")
+test = table(intr)
+library(RColorBrewer)
+coul <- brewer.pal(5, "Set2")
+barplot(test, main = "Changes in work for international students", col=coul)
+```
+
+A higher proportion of international students have reported **decreased work hours** in comparison to domestic students which can suggest a *higher financial burden* experienced by international students. 
+
+<br>
+
+###
+Does the financial support received due to COVID-19 differ between domestic and international students? 
+```{r, echo=F}
+domf = read.csv("domfin.csv")
+tabel = table(domf)
+library(RColorBrewer)
+coul <- brewer.pal(5, "Set3")
+barplot(tabel, main = "Domestic students financial support", names.arg=c("Govt help","Family/friends","Jobkeeper", "Uni support"), col=coul)
+
+intf = read.csv("intfin.csv")
+hell = table(intf)
+library(RColorBrewer)
+coul <- brewer.pal(5, "Set3")
+barplot(hell, main = "International students financial support", names.arg=c("Family/friends","Jobkeeper", "Uni support"), col=coul)
+```
+
+For both domestic and international students, **financial support from family and friends** is the main form of aid received. 
+
+COVID-19 supplements is also a widely received support option with domestic students. However, it is not present with international students as other countries/governments *do not* provide such aid.
+
+<br>
+
+###
+Is there a relationship between the hours worked and the number of hours studied during COVID-19?
+
+```{r, echo=F}
+survey = read.csv("realsurvey.csv")
+
+library(ggplot2)
+ggplot(survey, aes(x = How.many.hours.of.work.do.you.work.a.week.during.COVID.19., y = How.many.hours.of.study.did.you.do.during.COVID.19.)) + geom_point() + geom_smooth(method = 'lm', se = F) + labs(x='Work (hrs)', y = 'Study (hrs)')
+
+work = survey$How.many.hours.of.work.do.you.work.a.week.during.COVID.19.
+study = survey$How.many.hours.of.study.did.you.do.during.COVID.19.
+
+
+M = lm(study~work)
+summary(M)
+cor(work,study)
+
+plot(work, M$residuals, abline(h=0))
+```
+
+This graph has a *very weak positive trendline* with a correlation coefficient of 0.25, suggesting a weak relationship between the number of hours worked with the hours studied. The linear equation is represented by study = 9.09 + 0.159 (work).
+
+The data appears to be heteroscedastic hence why a linear model is not suitable but this might also be due to the lack of participants. Surprisingly, despite the weak relationship it suggests that the **more hours worked correlated with higher hours of study** which also highlights that time may not be the only major contributing factor to student studies. 
+
+Other factors like work ethic, motivation and lifestyles and one's studyload may influence the hrs of study undertaken by students. 
+
+<br>
+
+###
+Have the challenges of COVID-19 towards the quality of education received contributed to domestic and international student’s consideration of deferring their studies?
+```{r, echo=F}
+ddom = read.csv("ddom.csv")
+domd = table(ddom)
+library(RColorBrewer)
+coul <- brewer.pal(5, "Set2")
+barplot(domd, main = "COVID-19 positively/negatively impacted studies of domestic students", xlab = "Domestic students response", ylab = "Number of students", col=coul)
+
+
+dint = read.csv("dint.csv")
+intd = table(dint)
+library(RColorBrewer)
+coul <- brewer.pal(3, "Set2")
+barplot(intd, main = "COVID-19 positively/negatively impacted studies of int. students", xlab = "International students response", ylab = "Number of students", col=coul)
+
+
+sdom = read.csv("sdom.csv")
+tabl = table(sdom)
+barplot(tabl, main = "Effectiveness of online learning for domestic students", xlab = "Domestic students response", ylab = "Number of students", col = "orange")
+
+
+sint = read.csv("sint.csv")
+tabl = table(sint)
+barplot(tabl, main = "Effectiveness of online learning for int. students", xlab = "International students response", ylab = "Number of students", col = "orange")
+```
+
+It is evident that the majority of both domestic and international students agree that COVID-19 has **negatively affected their education**. However, the data *differs* when considering the effectiveness of online learning during COVID-19. With domestic students, majority *agree* on a 6/10 rating, whilst for international students the rating *varies*, with 4/10, 6/10 and 8/10 being popular options. 
+
+This could indicate that **COVID-19 has not necessarily contributed directly** to students deferring studies as there are some who do prefer online learning or feel a positive impact on their studies with their current circumstances.
+
+<br>
+
+###
+Do international students consider deferring studies more than domestic students? If so, how come?
+```{r, echo=F}
+thoughtd = read.csv("thoughtd.csv")
+domt = table(thoughtd)
+library(RColorBrewer)
+coul <- brewer.pal(5, "Set1")
+barplot(domt, main = "Domestic students decision to defer studies", xlab = "Student response", ylab = "Number of students", horiz = T, col=coul)
+```
+
+```{r, echo=F}
+thoughti = read.csv("thoughti.csv")
+intt = table(thoughti)
+library(RColorBrewer)
+coul <- brewer.pal(5, "Set1")
+barplot(intt, main = "International students decision to defer studies", xlab = "Student response", ylab = "Number of students", horiz = T, col=coul)
+```
+
+From the data collected, it would seem that **similar proportions** of both domestic and international students have considered deferring studies this year, although a higher portion of domestic studnets considered deferring in comparison to domestic students.
+
+<br>
+
+
+## Related Articles
+International students have been reported to experience financial hardships during COVID-19 with many experiencing job cuts especially with being excluded from government help programs (Purtill, 2020). This added financial stress with a predominantly online learning environment has been shown to negatively impact student studies (Morris et al., 2020). 
+
+
+<br>
+
+## References
+
+- Morris, A., Hastings, C., Wilson, S., Mitchell, E., Ramia, G., & Overgaard, C. (2020). The Experience of International Students Before and During COVID-19. Retrieved from Analysis & Policy Observatory: https://bit.ly/3kljJrO
+
+- Purtill, J. (2020). ‘It has really f*****d me over’: The impact of COVID on young hospitality. Retrieved October 21, 2020, from  https://www.abc.net.au/triplej/programs/hack/covid-19-coronavirus-pandemic-hit-young-hospitality-workers-hard/12799238 
+
+
+<br>
+
+## Acknowledgments
+Team consists of Ella, Keane, Leo and Yunhan. Group met on the 28th of September, around 1:30pm (GMT+11) via Facebook.
+
+Ella contributed in the making of the survey through Google Forms and analysing results.
+
+Keane coded the report in RStudio and assisted in making the survey.
+
+Both Leo and Yunhan contributed by suggesting possible questions for the survey and distributing it to peers for data collection.
+
+
+
+
+
+
+
+

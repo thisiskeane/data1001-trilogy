@@ -1,0 +1,164 @@
+---
+title: "Auckland flight trends for Qantas"
+author: "500459007"
+subtitle: "Project 3"
+date: "University of Sydney | DATA1001 | November 2020"
+output:
+  html_document:
+    fig_caption: yes
+    number_sections: yes
+    self_contained: yes
+    theme: flatly
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    code_folding: hide
+---
+
+<br>
+
+
+# Recommendaton
+
+This report is stated for **Qantas Airways** and has an analysis of flights to Auckland from 2003 to 2018. 
+
+The recommendation formed after data analysis would be for Qantas to **focus flight routes towards Auckland** due to tourism increase as the city has gained popularity as a highly sought destination.
+
+<br>
+
+# Initial Data Analysis
+
+<br>
+
+## Source of data
+
+The dataset is sourced from the [Australian Government](https://data.gov.au/dataset/ds-dga-e82787e4-a480-4189-b963-1d0b6088103e/details), a legitimate, reliable source. 
+
+In terms of the data, there is a possibility of:
+
+- Human error during entering data in the system
+- Miscalculations/misinterpretation of data 
+- False or invalid data entry
+
+<br>
+
+## Structure of dataset
+
+The data has **15 variables** with **89312 responses** (objects).
+```{r}
+flights_data = read.csv("flights.csv")
+dim(flights_data)
+```
+
+```{r, echo=F}
+str(flights_data)
+```
+
+<br>
+
+## Limitations of data
+
+```{r, echo=F}
+years = table(flights_data$Year)
+plot(years, main = "Years", xlab = "Year", ylab = "Flights")
+```
+
+The data was collected over a period of **15 years** (2003 - 2018). 
+
+However, it is **not representative of current circumstances** within the airline industry during the COVID-19 pandemic and countries closing borders (confounding variable).
+
+<br>
+
+# Evidence
+
+## Number of flights
+
+```{r, echo=F}
+qantas = read.csv("qantas.csv")
+
+plot(qantas$Year~qantas$All.flights, main = "Qantas flights to Auckland", xlab = "Number of flights", ylab = "Year")
+
+
+years = table(qantas$Year)
+plot(years, main = "Flight routes to Auckland from Australian cities", xlab = "Year", ylab = "Flights")
+```
+
+According to the plot above, it is evident that flight routes to Auckland from Australian cities aboard Qantas have been on a **steady decline** over the years since 2004. 
+
+This could indicate that Qantas is aiming to transport *more* passengers with the use of *less* routes, making their fleet and airway **more efficient** in response to higher demand of flights to Auckland. 
+
+There is also a drop in routes in 2018. This may possibly be due to:
+
+- Drop in flight demand
+- Lack of data from 2018
+
+Another factor includes the new partnership formed in 2018 between Qantas and Air NZ, allowing passengers *either* airline to travel between Australia and New Zealand (Lake, 2018), giving travelers the choice to choose between Qantas or Air NZ.
+
+<br>
+
+## Number of passengers 
+
+```{r, echo=F}
+# Fix this shit
+plot(qantas$Year, qantas$Max.ppl, main = "Max. passengers on flights", xlab = "Year", ylab = "Number of passengers")
+```
+
+In the early 2000s, most flights have passengers *below* the 15000 capacity mark and only a **small amount of flights** have a **high amount of passengers** (above 30000). 
+
+As the years pass, flight capacities gradually became **evenly distributed**, with an **even spread of capacity** from 2012. 
+
+Even in 2018 with the low number of routes to Auckland, flight capacity distribution *remained*. 
+
+This indicates that although Qantas has **less routes**, travel demand to Auckland has **remained the same**, if not developed with a steady range of passenger capacities amongst routes.
+
+<br>
+
+## Mean & Median
+
+```{r, echo=F}
+gogt = read.csv("Mean flights - Sheet1.csv")
+barplot(gogt$Mean, gogt$Year, main = "Average number of passengers (2003-2018)", xlab = "Year", ylab = "Mean passengers")
+
+
+library(ggplot2)
+p = ggplot(gogt, aes(x=factor(Year)))
+p + geom_bar(aes(fill = Mean))
+```
+
+As seen in the above graphs, average number of passengers have **increased steadily**. In 2003, the mean was just under 10000 people. In 2016, it has climbed to over 13000. 
+
+This is indicative that over time, **more Australians are seeking to travel to Auckland**. These findings reflect the recommendation of Qantas Airways developing flight routes *more* towards Auckland as Australians are more than keen in traveling that direction, and have been for some time.
+
+However, in 2018, average spiked by at least 3000 people. This is possibly an outlier within the dataset as there are *less* routes in 2018 compared to the years before it.
+
+<br>
+
+## Other Evidence 
+
+The increase in travel to Auckland is reflected in an article from 2015 stating Auckland's tourists has "cracked the two million mark for annual international visitor arrivals for the first time" (Bradley, 2015). 
+
+Another source states that Auckland is Qantas Airways' "most popular international destination due to high transtasman traffic" (Gibson, 2015). This supports the findings and evidence gathered from the datasets and backs the recommendation of Qantas Airways focusing more of their flight routes towards the ever-booming city of Auckland.
+
+<br>
+
+# Acknowledgements
+
+I'd like to acknowledge my tutor Jackzon Zhou who answered my [EdStem](https://edstem.org/courses/4447/discussion/338790) query.
+
+<br>
+
+# References
+
+Bradley, G. (2015). *Auckland visitors top 2 million.* NZ Herald. Retrieved 3 November 2020, from https://www.nzherald.co.nz/business/auckland-visitors-top-2-million/EAABNIIWDPFI222L4LONROM5QM/.
+
+Gibson, N. (2015). *Carry on: More Air NZ Dreamliners, Qantas' new Auckland lounge, world's safest airline.* NBR. Retrieved 5 November 2020, from https://www.nbr.co.nz/article/carry-more-air-nz-dreamliners-qantas-new-auckland-lounge-worlds-safest-airline-ng-167312.
+
+Lake, D. (2018). *Air NZ and Qantas announce new partnership.* Newshub. Retrieved 6 November 2020, from https://www.newshub.co.nz/home/travel/2018/06/airnz-and-qantas-announce-new-partnership.html.
+
+<br>
+
+# Data Science Reflection
+
+DATA1001 has helped prepare this report by providing useful lectures and coding guides, advising which graphical/numerical summaries appropriate to represent evidence. 
+
+These skills are useful throughout my major as they are fundamental to the core of Data Science, providing essential first steps into a heightened understanding of the course.
