@@ -1,0 +1,241 @@
+---
+title: "Newtown 2017 House Prices Report"
+author: "**SID:** 500459007"
+subtitle: "Project 1"
+date: "University of Sydney  | DATA1001  |  September 2020"
+output:
+  html_document:
+    fig_caption: yes
+    number_sections: yes
+    self_contained: yes
+    theme: flatly
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    code_folding: hide
+---
+
+<br>
+
+# Executive Summary
+
+From the data analysis and report, it is evident that the price of properties is affected by different variables such as number of bedrooms, carspots etc.
+
+Properties in Newtown are rather expensive (average price: $1.4 mil), with the cheapest being $370k and the most expensive being $3.15 mil.
+
+
+<br>
+
+# Full Report
+
+## Initial Data Analysis (IDA)
+
+The Newtown property prices dataset comes from data scraped by [domain](www.domain.com.au) in June 2017. 
+
+<br>
+
+### Source:
+
+The data is sourced from [Domain](www.domain.com.au), a reputable and legitimate Australian digital property portal. 
+
+In terms of the data collected, there is a possibility of:
+
+- Human error during entering data in the system
+- Miscalculations or misinterpretation of data 
+- False or invalid data entry
+
+### Structure
+
+The data has 56 objects with 8 variables
+
+```{r}
+property = read.csv("http://www.maths.usyd.edu.au/u/UG/JM/DATA1001/r/current/data/NewtownJune2017.csv")
+dim(property)
+```
+
+```{r, echo=F}
+str(property)
+```
+
+```{r, echo=F}
+count = table(property$Bedrooms)
+barplot(count, main = "Bedrooms per property", xlab = "Bedrooms", ylab = "Properties")
+```
+
+```{r, echo=F}
+bath = table(property$Bathrooms)
+barplot(bath,main = "Bathrooms per property", xlab = "Bathrooms", ylab = "Properties")
+```
+
+```{r, echo=F}
+spots = table(property$Carspots)
+barplot(spots, main = "Carspots per property", xlab = "Carspots", ylab = "Properties")
+```
+
+```{r, echo=F}
+sells = table(property$Sold)
+plot(sells, main = "Property selling price", xlab = "Price ($)", ylab = "Properties sold")
+```
+
+<br>
+
+### Limitations
+```{r, echo=F}
+dates = table(property$Date)
+plot(dates, main = "Dates of property sold", xlab = "Date", ylab = "Properties sold")
+```
+
+- All the properties sold were **within 2 months** and **only within 1 suburb (Newtown)**. 
+- **Small sample size** and the **timing of data collection** may not be an appropriate reflection of house prices *throughout* Sydney.
+- **Confounding variables** (such as the property location) may also affect prices.
+
+
+<br>
+
+
+## Research Questions (given)
+
+### What was the average price of a property?
+
+Property average price: 
+```{r, echo = F}
+mean(property$Sold)
+```
+
+Property median price:
+```{r, echo=F}
+median(property$Sold)
+```
+
+Standard deviation of prices:
+```{r,echo=F}
+sd(property$Sold)
+```
+
+IQR of prices:
+```{r, echo = F}
+IQR(property$Sold)
+```
+
+<br>
+
+### Does the amount of carspots affect the price?
+```{r, echo = F}
+library(ggplot2)
+p = ggplot(property, aes(Sold, Carspots))
+p + geom_point()
+```
+
+Mean of properties with 1 carspot:
+
+```{r, echo=F}
+mean(property$Sold[property$Carspots=="1"])
+```
+
+Mean of properties with 2 carspots:
+```{r, echo=F}
+mean(property$Sold[property$Carspots=="2"])
+```
+
+Mean of properties with no carspots:
+```{r, echo=F}
+mean(property$Sold[property$Carspots=="0"])
+```
+
+
+The amount of carspots **does seem to affect** the price of properties as the mean for properties with 2 carspots is *much higher* than for properties with 1 or no carspots. 
+
+However, it is evident that most properties either have 1 or no carspots. This sample **may not be an accurate representation** of the number of carspots affecting the price.
+
+```{r,echo=F}
+spots = table(property$Carspots)
+barplot(spots, main = "Number of carspots per property", xlab = "Carspots", ylab = "Properties")
+```
+
+<br>
+
+###  What were the cheapest properties?
+
+Properties sorted by price:
+```{r, echo=F}
+sold = property$Sold
+sort(sold)
+```
+
+Cheapest properties
+```{r, echo=F}
+attach(property)
+head(property[order(Sold), ][c(1, 6, 7)], 10)
+```
+
+Top 3 cheapest properties were:
+
+- 514/88 King St, $370k
+- 14/163 Australia St, $625k
+- 1/60 Wilson St, $645k
+
+<br>
+
+### Assuming commission fees are around 2%, which agency earnt the most over that period? 
+
+Agent sales:
+```{r, message = FALSE, echo=F}
+library(tidyverse)
+property_grouped_by_agent <- group_by(property, Agent)
+summarise(property_grouped_by_agent, earnings = sum(Sold)*0.02)
+```
+*RayWhite* is the agency with most earnings (347.62)
+
+<br>
+
+
+## Research Question (own)
+
+### Does the number of bedrooms affect the price of properties?  
+
+Average price with 1 bedroom:
+```{r, echo=F}
+mean(property$Sold[property$Bedrooms=="1"])
+```
+
+Average price with 2 bedrooms:
+```{r, echo=F}
+mean(property$Sold[property$Bedrooms=="2"])
+```
+
+Average price with 3 bedrooms:
+```{r, echo=F}
+mean(property$Sold[property$Bedrooms=="3"])
+```
+
+Average price with 4 bedrooms:
+```{r, echo=F}
+mean(property$Sold[property$Bedrooms=="4"])
+```
+
+Average price with 5 bedrooms:
+```{r, echo=F}
+mean(property$Sold[property$Bedrooms=="5"])
+```  
+
+<br>
+
+Number of bedrooms vs Price
+```{r, echo = F}
+library(ggplot2)
+p = ggplot(property, aes(Sold, Bedrooms))
+p + geom_point()
+```
+
+Number of bedrooms in each property **affects the price**.
+
+As  **bedrooms increase**,  average price **increases**. 
+
+Average for 5 bedrooms is *lower* than average for 4 bedrooms as **only 1 property** has 5 bedrooms.
+
+1 property has **no bedrooms**, possibly due to data misinterpretation or it is not for living (a garage).
+
+
+
+
+
