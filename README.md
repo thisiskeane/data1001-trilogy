@@ -8,4 +8,10 @@ Data from Domain was collected/analysed and report was constructed through the u
 
 Data structure and limitations were conveyed with visual graphs (bar plots and line graphs)
 
-4 research questions were tasked 
+4 research questions were tasked, along with an independent question of choice:
+- What was the average price of a property?
+- Does the amount of carspots affect the price?
+- What were the cheapest properties?
+- Assuming commission fees are around 2%, which agency earnt the most over that period?
+- Does the number of bedrooms affect the price of properties? (independent)
+
