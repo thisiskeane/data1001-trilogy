@@ -40,3 +40,7 @@ Relevant files are:
 ```
 ReportTemplate_Project2.html & ReportTemplate_Project2.Rmd
 ```
+
+# **Project 2**
+This project was made with the intention of analysing flight trends for flights to Auckland, New Zealand from major Australian cities (Sydney, Melbourne etc.) via Qantas Airways
+
