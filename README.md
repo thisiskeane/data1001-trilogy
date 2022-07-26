@@ -17,5 +17,8 @@ Data structure and limitations were conveyed with visual graphs (bar plots and l
 
 Each question was analysed with results gained through R statistical analysis (mean, median, standard deviation etc.) alongside the implementation of tables and scatterplots
 
+Relevant files are
+ReportTemplate_Project1.html & ReportTemplate_Project1.Rmd
+
 
 # **Project 2**
