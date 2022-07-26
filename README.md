@@ -15,3 +15,7 @@ Data structure and limitations were conveyed with visual graphs (bar plots and l
 - Assuming commission fees are around 2%, which agency earnt the most over that period?
 - Does the number of bedrooms affect the price of properties? (independent)
 
+Each question was analysed with results gained through R statistical analysis (mean, median, standard deviation etc.) alongside the implementation of tables and scatterplots
+
+
+# **Project 2**
