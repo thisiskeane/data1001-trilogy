@@ -6,3 +6,6 @@ This project was made with the intention of analysing the trend of 2017 property
 
 Data from Domain was collected/analysed and report was constructed through the use of the one and only RStudio
 
+Data structure and limitations were conveyed with visual graphs (bar plots and line graphs)
+
+4 research questions were tasked 
