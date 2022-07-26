@@ -24,4 +24,14 @@ ReportTemplate_Project1.html & ReportTemplate_Project1.Rmd
 
 
 # **Project 2**
-This project was primarily aiming to examine the impact of COVID-19 on both domestic and international students, along with factors such as 
+This project was primarily aiming to examine the impact of COVID-19 on both domestic and international students, along with factors such as working hours, financial support and online learning
+
+Data was collected from a survey (Google Forms) provided to the 2020 Semester 1 cohort of DATA1001, along with external students from other cohorts and faculties
+
+All research questions were of independent choice:
+- How many hours (per week) do students work?
+- Has working hours increased/decreased due to COVID-19
+- Does the financial support received due to COVID-19 differ between domestic and international students?
+- Is there a relationship between the hours worked and the number of hours studied during COVID-19?
+- Have the challenges of COVID-19 towards the quality of education received contributed to domestic and international student's consideration of deferring their studies?
+- Do international students consider deferring studies more than domestic students?
