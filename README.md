@@ -1,4 +1,4 @@
-# USyd DATA001 Projects Trilogy
+# USyd DATA1001 Projects Trilogy
 Trilogy of projects made during the first year of my Data Science major
 
 # **Project 1**
