@@ -42,5 +42,15 @@ ReportTemplate_Project2.html & ReportTemplate_Project2.Rmd
 ```
 
 # **Project 3**
-This project was made with the intention of analysing flight trends to Auckland, New Zealand from major Australian cities (Sydney, Melbourne etc.) via Qantas Airways
+This project was made with the intention of analysing flight trends to Auckland, New Zealand from major Australian cities (Sydney, Melbourne etc.) via Qantas Airways. The proposed theory was Qantas increasing its focus onto flights to Auckland due to a steady increase in New Zealand tourism rates
 
+Data was collected from the online datahub of the Australian Government and once again, cleaned and analysed through RStudio
+
+Evidence of this was gathered through analysis of the number of flights and routes, along with trends in passenger numbers
+
+For this project, there were no research questions but rather a statistical discovery method of approach
+
+Relevant files are:
+```
+ReportTemplate_Project3.html & ReportTemplate_Project3.Rmd
+```
