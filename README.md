@@ -1,6 +1,8 @@
 # USyd DATA1001 Projects Trilogy
 Trilogy of projects made during the first year of my Data Science major
 
+**Link to project:** https://github.com/thisiskeane/data1001-trilogy
+
 # **Project 1**
 This project was made with the intention of analysing the trend of 2017 property prices in Newtown NSW
 
